@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
+  Patch,
   Post,
   Res,
 } from '@nestjs/common';
@@ -24,5 +26,15 @@ export class CoursesController {
   @HttpCode(204)
   create(@Body() body) {
     return body;
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {
+    return `Curso ${id} atualizado com sucesso`;
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `Curso ${id} excluido com sucesso`;
   }
 }
