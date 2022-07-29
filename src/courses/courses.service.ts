@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Course } from './entities/course.entity';
 
 @Injectable()
@@ -13,11 +13,23 @@ export class CoursesService {
   ];
 
   findAll() {
-    return this.courses;
+    const _courses = this.courses;
+
+    if (_courses.length == 0) {
+      throw new NotFoundException(`Nenhum curso encontrado`);
+    } else {
+      return _courses;
+    }
   }
 
   findOne(id: string) {
-    return this.courses.find((course) => course.id === Number(id));
+    const course = this.courses.find((course) => course.id === Number(id));
+
+    if (!course) {
+      throw new NotFoundException(`User ${id} not found!`);
+    } else {
+      return course;
+    }
   }
 
   create(createCourseDto: any) {
