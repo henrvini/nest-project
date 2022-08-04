@@ -14,7 +14,6 @@ export class CoursesService {
 
   findAll() {
     const _courses = this.courses;
-
     if (_courses.length == 0) {
       throw new NotFoundException(`Nenhum curso encontrado`);
     } else {
@@ -34,6 +33,8 @@ export class CoursesService {
 
   create(createCourseDto: any) {
     this.courses.push(createCourseDto);
+    console.log(this.courses);
+    return createCourseDto;
   }
 
   update(id: string, updateCourseDto: any) {
